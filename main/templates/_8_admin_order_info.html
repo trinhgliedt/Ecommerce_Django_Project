@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/projectStyle.css">
+    
+    <!-- {% load static %}
+    <link rel='stylesheet' href='{% static 'projectStyle.css' %}'> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="../js/projectJS.js"></script>
+    
+    <title>Order information</title>
+</head>
+<body>
+<div class="container">
+    <div class="row mb-3 bg-info pt-4 pb-2"> <!-- Header bar -->
+        <div class="col-8">
+            <a class="mr-2 text-white" href="/admin/dashboard">Dashboard</a>
+            <a class="mr-2 text-white" href="/admin/orders">Orders</a>
+            <a class="text-white" href="/admin/products">Dashboard</a>
+        </div>
+        <div class="col-4 text-right">
+            <a class="ml-5 text-white" href="user/logoff">Log off</a>
+        </div>
+    </div> <!-- End of Header bar -->
+    <div class="row ">
+
+        <div class="col-3 mx-4 pb-5 border border-info"> <!-- Left box -->
+            <div class="row pl-2">{{ this_order.id }}</div>
+            <div class="row pl-2 mt-4">Customer shipping info:</div>
+            <div class="row pl-2">{{ this_order.customer.name }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_street }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_city }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_state }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_zip }}</div>
+            <div class="row pl-2 mt-4">Customer billing info:</div>
+            <div class="row pl-2">{{ this_order.customer.name }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_street }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_city }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_state }}</div>
+            <div class="row pl-2">{{ this_order.customer.address_zip }}</div>
+        </div>  <!-- End of Left box -->
+        <div class="col-8 "> <!-- Right box -->
+            <table class="table table-bordered table-hover mb-4">  <!-- Item breakdown -->
+                <thead class="">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- {% for item in all_items %} -->
+                    <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price }}*{{ item.quantity }}</td>
+                    </tr>
+                    <!-- {% endfor %} -->
+                </tbody>
+            </table> <!-- End of item table -->
+            <div class="row ">
+                <div class="col-5 ml-3">Status: {{ this_order.status }}</div>
+                <div class="col-5 offset-1 border border-info">
+                    <p class="row">Subtotal: ${{ this_oder.total }}</p>
+                    <p class="row">Shipping: ${{ this_oder.shipping_fee }}</p>
+                    <p class="row">Total Price: ${{ this_oder.shipping_fee }}+{{ this_oder.total }}</p>
+                </div>
+            </div>
+        </div> <!-- End of Right box -->
+    </div>
+</div> <!-- End of container -->
+    
+</body>
+</html>

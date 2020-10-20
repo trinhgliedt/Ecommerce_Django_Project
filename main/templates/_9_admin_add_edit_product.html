@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/projectStyle.css">
+    <!-- {% load static %}
+    <link rel='stylesheet' href='{% static 'projectStyle.css' %}'> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="../js/projectJS.js"></script>
+    
+    <title>Add/Edit Product</title>
+</head>
+<body>
+<div class="container">
+    <div class="row mb-3 bg-info pt-4 pb-2"> <!-- Header bar -->
+        <div class="col h3 text-white">Logo</div>
+    </div> <!-- End of Header bar -->
+    <h2>
+        <!-- {% if mode="add" %} -->
+            Add Product - ID {{ this_product.id }}
+        <!-- {% if mode="edit" %} -->
+            Edit Product - ID {{ this_product.id }}
+        <!-- {% endif %} -->
+    </h2>
+    <!-- {% if mode="add" %} -->
+        <!-- <form action="/" method="POST"> -->
+        <!-- {% csrf_token %} -->
+            
+        <!-- </form> -->
+    <!-- {% if mode="edit" %} -->
+        <form action="/" method="POST">
+        <!-- {% csrf_token %} -->
+            <div class="row my-3">
+                <label class="col-4 text-right " for="name">Name</label>
+                <input class="col-5" type="text" name="name" value="{{ this_product.name }}">
+            </div>
+            <div class="row my-3">
+                <label class="col-4 text-right" for="desc">Description</label>
+                <textarea class="col-5" name="desc" id="" cols="48.5" rows="6">{{ this_product.desc }}</textarea>
+            </div>
+            <div class="row my-3">
+                <label class="col-4 text-right " for="desc">Categories</label>
+                <select class="col-5" name="category" id="">
+                    <!-- {% for category in all_categories %} -->
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    <!-- {% endfor %} -->
+                </select>
+            </div>
+            <div class="row my-3">
+                <label class="col-4 text-right" for="new_category">or add a new category:</label>
+                <input class="col-5" type="text" name="new_category">
+            </div>
+            <div class="row my-3">
+                <label class="col-4" for="image">Images</label>
+                <button class="btn btn-primary shadow"  id="upload-btn">Upload</button>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-2">{{ form.file1 }}</div>
+                <div class="col-1">Delete</div>
+                <div class="col-1">Main</div>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-2">{{ form.file2 }}</div>
+                <div class="col-1">Delete</div>
+                <div class="col-1">Main</div>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-2">{{ form.file3 }}</div>
+                <div class="col-1">Delete</div>
+                <div class="col-1">Main</div>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-2">{{ form.file4 }}</div>
+                <div class="col-1">Delete</div>
+                <div class="col-1">Main</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4"></div>
+                <div class="col-2">{{ form.file5 }}</div>
+                <div class="col-1">Delete</div>
+                <div class="col-1">Main</div>
+            </div class="row mb-5">
+                <button class="col-1.5 mr-2 offset-4 btn btn-primary shadow"  id="cancel-btn">Cancel</button>
+                <button class="col-1.5 mr-2 btn btn-primary shadow"  id="preview-btn">Preview</button>
+                <button class="col-1.5 mr-2 btn btn-primary shadow "  id="update-btn">Update</button>
+            </div>
+        </form>
+    <!-- {% endif %} -->
+</div> <!-- End of container -->
+</body>
+</html>

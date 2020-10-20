@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/projectStyle.css">
+    {% load static %}
+    <link rel='stylesheet' href='{% static 'projectStyle.css' %}'>
+    <!-- <script src="../js/projectJS.js"></script> -->
+    
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div class="container">
+    <div class="row mb-3 bg-info pt-4 pb-2"> <!-- Header bar -->
+        <div class="col h3 text-white">Logo</div>
+        <div class="col text-white text-right">
+            <a class="text-white" href="/shopping_cart">Shopping Cart  (count of items) </a>
+        </div> 
+    </div> <!-- End of Header bar -->
+    <table class="table table-bordered table-hover">  <!-- Order breakdown -->
+        <thead class="">
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item, quantity in carts %}
+                <tr>
+                    <!-- <th scope="row">{{ Product.objects.get(id=int(item) }}</th> -->
+                    <th scope="row">{{ item.name }}</th>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}
+                        <a href="item/update">update</a>
+                        <a href="item/delete">remove</a>
+                    </td>
+                    <td>{{ item.quantity*item.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> <!-- End of order table -->
+
+        <div class="row font-weight-bold mb-2">
+            <div class="col-3 offset-9 text-right">Total: ${{ this_order.total }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3 offset-9 text-right"><button type="button" class="btn btn-success shadow">Continue Shopping</button></div>
+        </div>
+    <div class="col-8 mx-3 mb-5"> <!-- Wrapper for shipping and billing info -->
+        <div class="row h4">Shipping Information</div>
+        <div class="row my-1">
+            <div class="col-3">First Name:</div>
+            <div class="col-9"><textarea name="first_name" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Last Name:</div>
+            <div class="col-9"><textarea name="last_name" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Address:</div>
+            <div class="col-9"><textarea name="address" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Address 2:</div>
+            <div class="col-9"><textarea name="address2" id="" cols="30" rows="1"></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">City:</div>
+            <div class="col-9" required><textarea name="city" id="" cols="30" rows="1"></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3" >State:</div>
+            <div class="col-9"><textarea name="state" id="" cols="30" rows="1" required maxlength=2></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Zipcode:</div>
+            <div class="col-9"><textarea name="zipcode" id="" cols="30" rows="1" required maxlength=5></textarea></div>
+        </div>
+        <div class="row h4 mt-3">Billing Information</div>
+        <div class="row my-1">
+            <div class="col-1 text-right"><input type="checkbox" name="same_as_shipping"></div>
+            <div class="col"><label for="same_as_shipping">Same as Shipping</label></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">First Name:</div>
+            <div class="col-9"><textarea name="first_name" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Last Name:</div>
+            <div class="col-9"><textarea name="last_name" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Address:</div>
+            <div class="col-9"><textarea name="address" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Address 2:</div>
+            <div class="col-9"><textarea name="address2" id="" cols="30" rows="1"></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">City:</div>
+            <div class="col-9" required><textarea name="city" id="" cols="30" rows="1"></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3" >State:</div>
+            <div class="col-9"><textarea name="state" id="" cols="30" rows="1" required maxlength=2></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Zipcode:</div>
+            <div class="col-9"><textarea name="zipcode" id="" cols="30" rows="1" required maxlength=5></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Card:</div>
+            <div class="col-9"><textarea name="card" id="" cols="30" rows="1" required></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Security Code:</div>
+            <div class="col-9"><textarea name="security_code" id="" cols="30" rows="1" required maxlength=3></textarea></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3">Expiration:</div>
+            <div class="col-9"><input type="number" min="1" max="12" name="card_exp_month"> /
+                <input type="number" min="2020" max="2040" name="card_exp_year"></div>
+        </div>
+        <div class="row my-1">
+            <div class="col-3 offset-5 text-right"><button type="button" class="btn btn-success shadow">Pay</button></div>
+            
+        </div>
+        
+    </div> <!-- End of shipping and billing info -->
+</div> <!-- End of container -->
+
+</body>
+</html>

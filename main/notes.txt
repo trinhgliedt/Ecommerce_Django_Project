@@ -1,0 +1,18 @@
+Payment: Stripe Python sdk, dumptree payment. Need a developer API key
+
+address: https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform#maps_places_autocomplete_addressform-javascript
+
+https://docs.djangoproject.com/en/3.1/topics/auth/default/#permissions-and-authorization
+
+upload image: https://stackoverflow.com/questions/52945391/how-to-upload-multiple-images-for-my-product-model-in-django
+
+order: shipping fee, status
+
+product: category
+
+pagination (making page)
+API for django-django api backend
+
+Question: How to save cart data to the specific user if they are not logged in
+
+What is @login_required: @: a decorator, gives the function/class some special power

@@ -2,23 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    {% load static %}
-    <link rel="stylesheet" href="{% static '../static/projectStyle.css' %}">
-    <!-- {% load static %}
-    <link rel='stylesheet' href='{% static 'projectStyle.css' %}'> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <!-- <script src="../js/projectJS.js"></script> -->
-
+    {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
     <title>Product Information</title>
 </head>
 
 <body>
     <div id="container">
         <!-- Beg of container -->
-        {% include "_0_nav_bar.html" %}  <!-- Import Header bar -->
+        {% include "_0_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
             <p class="row ml-5 mt-5">Your items have been added to your cart successfully</p>
             <a class="row ml-5" href="/">Continue shopping</a>
             <a class="row ml-5" href="">Go to cart</a>

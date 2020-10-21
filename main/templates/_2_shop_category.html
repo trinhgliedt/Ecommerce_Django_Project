@@ -3,23 +3,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    {% load static %}
-    <link rel="stylesheet" href="{% static '../static/projectStyle.css' %}">
-    
-
-
-
+    {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
     <title>Products</title>
 </head>
 
 <body>
     <div id="container">
-        {% include "_0_nav_bar.html" %}  <!-- Import Header bar -->
+        {% include "_0_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
         <div class="row mx-3">
             <div class="col-2 mr-3 border border-info p-4">
                 <!-- left box: category listing and search bar -->

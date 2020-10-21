@@ -6,27 +6,8 @@
 </head>
 <body>
 <div id="container">
-    {% include "_0_nav_bar.html" %}  <!-- Import Header bar -->
-    <div class="row mx-3">
-        <div class="col-2 mr-3 border border-info p-4"> <!-- left box: category listing and search bar -->
-        <div class="row mb-2">
-            <div class="col "> <!-- search box -->
-                <div class="input-group">
-                    <input class="form-control border-secondary py-2" type="search" placeholder="search">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div> <!-- End of search box -->
-        </div>
-        <div class="row h6">Categories</div>
-        {% for category in all_categories %}
-        <a class="text-dark" href="/product/category/{{ category.id }}">{{ category.name }}</a><br>
-        {% endfor %}
-        <a class="text-dark" href="/">Show all</a>
-    </div>
+    {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
+    {% include "_0_left_nav_bar.html" %}  <!-- Import nav_bar for category listing -->
     <div class="col border border-info "> <!-- right box: Category listing -->
         {% for category in all_categories %}
             <a class="row text-dark h4 text-center pl-4 pt-3" href="/product/category/{{ category.id }}">{{ category.name }}</a>

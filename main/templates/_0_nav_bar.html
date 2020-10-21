@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'projectStyle.css' %}">
+    
+    
+    <title>NavBar</title>
+</head>
+<body>
+    <div class="row mx-3 mb-3 bg-info pt-4 pb-2"> <!-- Header bar -->
+        {% load static %}
+        <img src="{% static 'sunflower1.png' %}" alt="logo" width="100">
+        <div class="col h3 text-white">S u n f l <span><img src="{% static 'blueSunflower.png' %}" alt="o in logo" width="50"></span> w e r</div>
+        <div class="col text-white text-right">
+            <a class="text-white" href="/shopping_cart">Shopping Cart  ({{quantity_in_cart}}) </a>
+        </div> 
+    </div> <!-- End of Header bar -->
+
+</body>
+</html>

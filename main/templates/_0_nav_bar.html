@@ -12,11 +12,11 @@
     <title>NavBar</title>
 </head>
 <body>
-    <div class="row mx-3 mb-3 bg-info pt-4 pb-2"> <!-- Header bar -->
+    <div class="row mx-3 mb-3 bg-info pt-3 pb-2"> <!-- Header bar -->
         {% load static %}
-        <img src="{% static 'sunflower1.png' %}" alt="logo" width="100">
-        <div class="col h3 text-white">S u n f l <span><img src="{% static 'blueSunflower.png' %}" alt="o in logo" width="50"></span> w e r</div>
-        <div class="col text-white text-right">
+        <img src="{% static "logos/blueSunflower.png" %}" alt="logo" width="100" id="logoImg" class="ml-2"/>
+        <div class="col h2 text-white mt-4" id="logoText">S u n f l<span><img src="{% static "logos/sunflower2.png" %}" alt="logo" width="30" class="mx-0" /></span>w e r s</div>
+        <div class="col text-white text-right mt-4 pt-2">
             <a class="text-white" href="/shopping_cart">Shopping Cart  ({{quantity_in_cart}}) </a>
         </div> 
     </div> <!-- End of Header bar -->

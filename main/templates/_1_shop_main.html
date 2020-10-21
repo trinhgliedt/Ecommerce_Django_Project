@@ -6,16 +6,22 @@
     {% load static %}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    {% load static %}
-    <link rel="stylesheet" href='{% static '../static/projectStyle.css' %}'>
+    <link rel="stylesheet" href="{% static 'projectStyle.css' %}">
+    <!-- <style>
+        * {outline: 1px solid yellow;}
+    </style> -->
     
     
     <title>Products</title>
 </head>
 <body>
 <div id="container">
-    {% load static %}
     {% include "_0_nav_bar.html" %}  <!-- Import Header bar -->
+    <script> 
+        $(function(){
+          $("#includedContent").load("_0_nav_bar.html"); 
+        });
+    </script> 
     <div class="row mx-3">
         <div class="col-2 mr-3 border border-info p-4"> <!-- left box: category listing and search bar -->
         <div class="row mb-2">

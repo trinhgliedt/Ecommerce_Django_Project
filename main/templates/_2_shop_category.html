@@ -19,15 +19,7 @@
 
 <body>
     <div id="container">
-        <div class="row mx-3 mb-3 bg-info pt-4 pb-2">
-            <!-- Header bar -->
-            <div class="col h3 text-white">Logo
-                <!-- <img src="../images/logo.png" width="80" alt="logo"> -->
-            </div>
-            <div class="col text-white text-right">
-                <a class="text-white" href="/shopping_cart">Shopping Cart  ({{quantity_in_cart}}) </a>
-            </div>
-        </div> <!-- End of Header bar -->
+        {% include "_0_nav_bar.html" %}  <!-- Import Header bar -->
         <div class="row mx-3">
             <div class="col-2 mr-3 border border-info p-4">
                 <!-- left box: category listing and search bar -->

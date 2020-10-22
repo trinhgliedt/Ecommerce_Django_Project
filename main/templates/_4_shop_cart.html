@@ -21,21 +21,30 @@
             {% for item_details in cart_detail %}
             <tr>
                 <td>{{ item_details.1 }}</td>
-                <td>{{ item_details.2 }}</td>
-                <td>{{ item_details.3 }}</td>
-                <td>{{ item_details.4 }}</td>
+                <td class="text-right pr-4">{{ item_details.2 }}</td>
+                <td class="text-right pr-4">{{ item_details.3 }}</td>
+                <td class="text-right pr-4">{{ item_details.4 }}</td>
             </tr>
             {% endfor %}
             <tr>
+                <td colspan="3" class="text-right">Total before sales tax: </td>
+                <td class="text-right pr-4">${{ total_before_tax_str }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Sales Tax: </td>
+                <td class="text-right pr-4">${{ sales_tax_str }}</td>
+            </tr>
+            <tr>
                 <td colspan="3" class="text-right">Total order: </td>
-                <td>${{ order_total }}</td>
+                <td class="text-right pr-4 font-weight-bold">${{ total_after_tax }}</td>
             </tr>
         </tbody>
     </table> <!-- End of order table -->
-            <div class="col-3 offset-10"><button type="button" class="btn btn-success shadow">Continue Shopping</button></div>
+            <div class="col-3 offset-10"><button type="button" class=" btn btn-success ">Continue Shopping</button></div>
         </div>
-    <div class="col-8 mx-3 mb-5"> <!-- Wrapper for shipping and billing info -->
-        <div class="row h4">Shipping Information</div>
+    <div class="row ml-5 pl-5">
+    <div class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
+        <div class="row h4 my-4">Shipping Information</div>
         <div class="row my-1">
             <div class="col-3">First Name:</div>
             <div class="col-9"><textarea name="first_name" id="" cols="30" rows="1" required></textarea></div>
@@ -64,7 +73,7 @@
             <div class="col-3">Zipcode:</div>
             <div class="col-9"><textarea name="zipcode" id="" cols="30" rows="1" required maxlength=5></textarea></div>
         </div>
-        <div class="row h4 mt-3">Billing Information</div>
+        <div class="row h4 mt-3 my-4">Billing Information</div>
         <div class="row my-1">
             <div class="col-1 text-right"><input type="checkbox" name="same_as_shipping"></div>
             <div class="col"><label for="same_as_shipping">Same as Shipping</label></div>
@@ -116,6 +125,7 @@
         </div>
         
     </div> <!-- End of shipping and billing info -->
+</div>
 </div> <!-- End of container -->
 
 </body>

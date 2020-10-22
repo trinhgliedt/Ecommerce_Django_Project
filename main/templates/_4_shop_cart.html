@@ -28,15 +28,15 @@
             {% endfor %}
             <tr>
                 <td colspan="3" class="text-right">Total before sales tax: </td>
-                <td class="text-right pr-4">${{ total_before_tax_str }}</td>
+                <td class="text-right pr-4">{{ total_before_tax_str }}</td>
             </tr>
             <tr>
                 <td colspan="3" class="text-right">Sales Tax: </td>
-                <td class="text-right pr-4">${{ sales_tax_str }}</td>
+                <td class="text-right pr-4">{{ sales_tax_str }}</td>
             </tr>
             <tr>
                 <td colspan="3" class="text-right">Total order: </td>
-                <td class="text-right pr-4 font-weight-bold">${{ total_after_tax }}</td>
+                <td class="text-right pr-4 font-weight-bold">{{ total_after_tax }}</td>
             </tr>
         </tbody>
     </table> <!-- End of order table -->

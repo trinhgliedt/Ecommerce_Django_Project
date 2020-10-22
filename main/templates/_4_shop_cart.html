@@ -18,16 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for item, quantity in carts %}
+            {% for itemId, quantity in carts %}
                 <tr>
-                    <!-- <th scope="row">{{ Product.objects.get(id=int(item) }}</th> -->
-                    <th scope="row">{{ item.name }}</th>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.quantity }}
+                    <td>{{ itemId }}</td>
+                    <td>{{ quantity }}
                         <a href="item/update">update</a>
                         <a href="item/delete">remove</a>
                     </td>
-                    <td>{{ item.quantity*item.price }}</td>
+                    <td>{{ item.quantity }}*{{ item.price }}</td>
                 </tr>
             {% endfor %}
         </tbody>

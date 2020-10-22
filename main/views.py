@@ -149,9 +149,9 @@ def add_to_cart(request):
                 request.session["quantity_in_cart"] = new_quantity
                 this_product.temp_quan_avail -= quantity
                 this_product.save()
-
+    
                 return redirect('/success')
-
+    print('request.session["cart_dict"]:', request.session["cart_dict"])
 
     return redirect('/success')
     # return redirect('/')
@@ -167,13 +167,16 @@ def display_success(request):
 
 
 def display_shopping_cart(request):
-    pass
-    # context = {
-    #     "carts" : request.session["cart_dict"],
-    #     "product_class": Product,
-    # }
-    # return render(request, "_4_shop_cart.html", context)
-    return redirect('/')
+    quantity_in_cart = 0
+    for key in request.session["cart_dict"]:
+        quantity_in_cart += request.session["cart_dict"][key]
+    context = {
+        "carts" : request.session["cart_dict"],
+        "quantity_in_cart": quantity_in_cart,
+        "product_class": Product,
+    }
+    return render(request, "_4_shop_cart.html", context)
+    # return redirect('/')
 
 def process_shopping_cart(request):
     pass

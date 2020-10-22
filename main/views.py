@@ -168,13 +168,30 @@ def display_success(request):
 
 def display_shopping_cart(request):
     quantity_in_cart = 0
+    #cart_detail: more details about this cart. Each item in the cart is stored in an array called item_info
+    cart_detail = []
+    #declare variable for this product, to pull put unit price and product name from model
+    this_product = None
+    order_total = 0
+
     for key in request.session["cart_dict"]:
+        #item_info: temporary variable inside loop, to store product id, name, unit price and quantity in cart
+        item_info = []
         quantity_in_cart += request.session["cart_dict"][key]
+        this_product = Product.objects.get(id=int(key))
+        item_info.append(key) #product id, item_info[0]
+        item_info.append(this_product.name) # product name, item_info[1]
+        item_info.append(this_product.unit_price) # unit price, item_info[2]
+        item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]
+        item_info.append(this_product.unit_price*request.session["cart_dict"][key]) #subtotal for this item, item_info[4]
+        order_total += item_info[4]
+        cart_detail.append(item_info)
     context = {
-        "carts" : request.session["cart_dict"],
+        "cart_detail" : cart_detail,
         "quantity_in_cart": quantity_in_cart,
-        "product_class": Product,
+        "order_total": order_total,
     }
+    print('cart_detail:', cart_detail)
     return render(request, "_4_shop_cart.html", context)
     # return redirect('/')
 

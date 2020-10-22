@@ -130,7 +130,19 @@ class COA(models.Model):
 
     #transactions: multiple transactions could affect one account, and multiple accounts could be included in one transaction
 
-
+class Cart(models.Model):
+    quantity_in_cart = models.IntegerField()
+    total_price = models.DecimalField(decimal_places=2)
+    product = models.ForeignKey(
+        Product,
+        related_name = "cart",
+        on_delete=models.CASCADE
+    )
+    customer = models.ForeignKey(
+        Customer,
+        related_name="carts",
+        on_delete=models.CASCADE
+    )
 
 class Transaction(models.Model):
     #accounts: one transaction could have multiple accounts, and one account could be affected by multiple transactions

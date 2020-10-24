@@ -212,3 +212,7 @@ def process_shopping_cart(request):
     pass
     # return redirect('/success')
     return redirect('/')
+
+def display_purchase_success(request):
+    
+    return render(request, "_13_purchase_success.html")

@@ -3,6 +3,7 @@ from .models import *
 import bcrypt
 from django.contrib import messages
 from decimal import Decimal
+import locale
 # from django.template.loader import render_to_string
 # from django.http import JsonResponse
 # from datetime import datetime
@@ -185,17 +186,20 @@ def display_shopping_cart(request):
         this_product = Product.objects.get(id=int(key))
         item_info.append(key) #product id, item_info[0]
         item_info.append(this_product.name) # product name, item_info[1]
-        #%0.2f is to convert the number to e decimal format. I needed to make a few new string variables since the original float variables are needed for calculation
-        item_info.append("%0.2f" %this_product.unit_price) # unit price, item_info[2]
+        
+        #locale.setlocale is to convert to currency, with decimals and comma for thousand. I needed to make a few new string variables since the original float variables are needed for calculation
+        locale.setlocale(locale.LC_ALL, 'en_US')
+
+        item_info.append(locale.currency(this_product.unit_price, symbol=False, grouping=True)) # unit price, item_info[2]
         item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]
-        item_info.append("%0.2f" % (this_product.unit_price*request.session["cart_dict"][key])) #subtotal for this item, item_info[4]
+        item_info.append(locale.currency(this_product.unit_price*request.session["cart_dict"][key], symbol=False, grouping=True)) #subtotal for this item, item_info[4]
         total_before_tax += this_product.unit_price*request.session["cart_dict"][key]
         cart_detail.append(item_info)
-    total_before_tax_str = "%0.2f" % total_before_tax
+    total_before_tax_str = locale.currency(total_before_tax, symbol=True, grouping=True)
     sales_tax_rate = 0.095
     sales_tax = Decimal(total_before_tax)*Decimal(sales_tax_rate)
-    sales_tax_str = "%0.2f" % sales_tax
-    total_after_tax = "%0.2f" % (total_before_tax + sales_tax)
+    sales_tax_str = locale.currency(sales_tax, symbol=False, grouping=True)
+    total_after_tax = locale.currency((total_before_tax + sales_tax), symbol=True, grouping=True)
 
     context = {
         "cart_detail" : cart_detail,

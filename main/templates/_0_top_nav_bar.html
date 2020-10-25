@@ -3,9 +3,9 @@
 <head>
 </head>
 <body>
-    <div id = "navbar_top" class="navbar sticky-top row mx-3 mb-3 bg-info pt-1 pb-2"> <!-- Header bar -->
+    <div id = "navbar_top" class="navbar sticky-top row mx-3 mb-3 bg-info pt-0 pb-2"> <!-- Header bar -->
         {% load static %}
-        <img src="{% static "logos/blueSunflower.png" %}" alt="logo" width="100" id="logoImg" class="ml-2"/>
+        <img src="{% static "logos/blueSunflower.png" %}" alt="logo" width="60" id="logoImg" class="ml-2"/>
         <div class="col h2 text-white mt-4" id="logoText">S u n f l<span><img src="{% static "logos/sunflower2.png" %}" alt="logo" width="30" class="mx-0" /></span>w e r s</div>
         <div class="col text-white text-right mt-4 pt-3">
             <a class="text-white " href="/shopping_cart">Shopping Cart  ({{quantity_in_cart}}) </a>

@@ -50,6 +50,19 @@ def display_category(request, cat_id ):
             quantity_in_cart += request.session["cart_dict"][key]
     # print('request.session["cart_dict"]: ', request.session["cart_dict"])
 
+    # reset the main photo for all products in this category to be the first photo in the photo list
+    products_in_this_category = Product.objects.filter(category_id=cat_id)
+    for each_product in products_in_this_category:
+        photos = Photo.objects.filter(for_product = each_product)
+        for photo in photos:
+            if photo.type_of_photo_id == 1:
+                photo.type_of_photo_id = 2
+                photo.save()
+        first_photo = photos.first()
+        first_photo.type_of_photo_id = 1
+        first_photo.save()
+        print("photos: ", photos, ", photos.first():", photos.first(), "photos.first().type_of_photo_id: ",photos.first().type_of_photo_id)
+
     context = {
         "all_categories": Category.objects.all(),
         "this_category": Category.objects.get(id=cat_id),
@@ -215,4 +228,19 @@ def display_shopping_cart(request):
 def process_shopping_cart(request):
     pass
     # return redirect('/success')
-    return redirect('/')
+
+def switch_main_image(request, cat_id, product_id, photo_id):
+    print("cat_id: ", cat_id, ",product_id: ", product_id )
+    this_product = Product.objects.get(id = product_id)
+    photos = Photo.objects.filter(for_product = this_product)
+    # find the main photo this product and change photo type to secondary
+    for photo in photos:
+        if photo.type_of_photo_id == 1:
+            photo.type_of_photo_id = 2
+            photo.save()
+    # then, change the current photo to main
+    this_photo = Photo.objects.get(id = photo_id)
+    this_photo.type_of_photo_id = 1
+    this_photo.save()
+
+    return redirect(f'/product/category/{cat_id}/item/{product_id}')

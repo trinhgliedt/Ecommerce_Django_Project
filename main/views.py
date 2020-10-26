@@ -213,9 +213,19 @@ def display_shopping_cart(request):
     # return redirect('/')
 
 def process_shopping_cart(request):
-    pass
+    customer = Customer.objects.create(
+        first_name=request.POST["first_name"],
+        last_name=request.POST["last_name"],
+        address_street=request.POST["address"],
+        address_city=request.POST["city"],
+        address_state=request.POST["state"],
+        address_zipcode=request.POST["zipcode"],
+        email=request.POST["email"]
+    )
+    for key, val in request.session["cart_dict"].items():
+        pass
     # return redirect('/success')
-    return redirect('/')
+    return redirect('/shopping_cart/success')
 
 def display_purchase_success(request):
     

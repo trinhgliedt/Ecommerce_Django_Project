@@ -41,7 +41,7 @@
         </tbody>
     </table> <!-- End of order table -->
             <div class="col-3 offset-10"><button type="button" class=" btn btn-success ">Continue Shopping</button></div>
-    <div class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
+    <form method="POST" action="/shopping_cart/process" class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
         <div class="row h4 my-4">Shipping Information</div>
         <div class="row my-1">
             <div class="col-3">First Name:</div>
@@ -122,7 +122,7 @@
             
         </div>
         
-    </div> <!-- End of shipping and billing info -->
+    </form> <!-- End of shipping and billing info -->
 </div> <!-- End of container -->
 
 </body>

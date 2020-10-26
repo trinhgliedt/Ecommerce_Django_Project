@@ -4,10 +4,6 @@ import bcrypt
 from django.contrib import messages
 from decimal import Decimal
 import locale
-# from django.template.loader import render_to_string
-# from django.http import JsonResponse
-# from datetime import datetime
-# from time import strftime, strptime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 

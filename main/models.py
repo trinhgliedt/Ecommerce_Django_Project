@@ -111,10 +111,11 @@ class Customer(models.Model):
     address_city  = models.CharField(max_length=45)
     address_state  = models.CharField(max_length=2)
     address_zipcode  = models.CharField(max_length=5)
-    email = models.EmailField(max_length=255)
+    # Email commented as it's not properly utilized currently
+    # email = models.EmailField(max_length=255)
 
     orders_placed = models.ForeignKey(
-        Product,
+        Order,
         related_name='customer_placed_by',
         on_delete=models.CASCADE
     )

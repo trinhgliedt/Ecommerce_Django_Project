@@ -219,12 +219,30 @@ def process_shopping_cart(request):
         address_street=request.POST["address"],
         address_city=request.POST["city"],
         address_state=request.POST["state"],
-        address_zipcode=request.POST["zipcode"],
-        email=request.POST["email"]
+        address_zipcode=request.POST["zipcode"]
     )
-    for key, val in request.session["cart_dict"].items():
-        pass
-    # return redirect('/success')
+
+    total_price = 0
+    for product_id, quantity in request.session["cart_dict"].items():
+        product = Product.objects.get(id=product_id)
+        total_price += product.unit_price * quantity
+    
+    try:
+        status = Status.objects.get(name="Purchased")
+    except:
+        status = Status.objects.create(name="Purchased")
+    order = Order.objects.create(
+        status = status,
+        total_product_price = total_price,
+        shipping_fee = 5.99
+    )
+
+    for product_id, quantity in request.session["cart_dict"].items():
+        order.products_included.add(Product.objects.get(id=product_id))
+    order.save()
+    
+    request.session["cart_dict"].clear()
+
     return redirect('/shopping_cart/success')
 
 def display_purchase_success(request):

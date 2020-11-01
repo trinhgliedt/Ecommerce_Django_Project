@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'projectStyle.css' %}">
 </head>
 <body>
     <div id="left_nav_bar" class="row mx-3">
-        <div  class=" col-2 mr-3 border border-info p-4"> <!-- left box: category listing and search bar -->
+        <div class=" col-2 mr-3 border border-info p-4"
+        style="height: 220px;"
+        > <!-- left box: category listing and search bar -->
         <div class="row mb-2">
             <div class="col "> <!-- search box -->
                 <div class="input-group">

@@ -213,18 +213,10 @@ def display_shopping_cart(request):
     # return redirect('/')
 
 def process_shopping_cart(request):
-    customer = Customer.objects.create(
-        first_name=request.POST["first_name"],
-        last_name=request.POST["last_name"],
-        address_street=request.POST["address"],
-        address_city=request.POST["city"],
-        address_state=request.POST["state"],
-        address_zipcode=request.POST["zipcode"]
-    )
 
     total_price = 0
     for product_id, quantity in request.session["cart_dict"].items():
-        product = Product.objects.get(id=product_id)
+        product = Product.objects.get(id=int(product_id))
         total_price += product.unit_price * quantity
     
     try:
@@ -240,11 +232,28 @@ def process_shopping_cart(request):
     for product_id, quantity in request.session["cart_dict"].items():
         order.products_included.add(Product.objects.get(id=product_id))
     order.save()
+
+    customer = Customer.objects.create(
+        first_name=request.POST["first_name"],
+        last_name=request.POST["last_name"],
+        address_street=request.POST["address"],
+        address_city=request.POST["city"],
+        address_state=request.POST["state"],
+        address_zipcode=request.POST["zipcode"],
+        orders_placed = order
+    )
     
     request.session["cart_dict"].clear()
+    request.session.save()
+    print(request.session["cart_dict"])
 
     return redirect('/shopping_cart/success')
 
 def display_purchase_success(request):
-    
-    return render(request, "_13_purchase_success.html")
+    quantity_in_cart = 0
+    for key in request.session["cart_dict"]:
+        quantity_in_cart += request.session["cart_dict"][key]
+    context = {
+        "quantity_in_cart": quantity_in_cart,
+    }
+    return render(request, "_13_purchase_success.html", context)

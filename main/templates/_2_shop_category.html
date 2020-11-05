@@ -61,6 +61,7 @@
             <div class="row m-2">
               <img class="" width="200" src="{{ photo.img.url }}" />
             </div>
+<<<<<<< HEAD
             {% endif %} {% endfor %}
             <!-- <div class="row m-2">{{ product.name }}</div> -->
             <a
@@ -115,3 +116,71 @@
     <!-- End of Container -->
   </body>
 </html>
+=======
+            <!-- <div class="row"> -->
+            <form class="row" action="" method="POST">
+                <div class="col-2 mb-2 text-right offset-8">Sorted by</div>
+                <div class="col">
+                    <select name="sorted_by" id="">
+                        <option value="price">Price</option>
+                        <option value="price">Most Popular</option>
+                    </select>
+                </div>
+            </form>
+            <!-- </div> -->
+            <div class="row mt-2">
+                <!-- Start of section showing products-->
+                {% for product in all_products %}
+                {% if product.category_id == this_category.id and product.temp_quan_avail > 0 %}
+                <div class="col-3">
+                    {% for photo in all_photos %}
+                    {% if photo.type_of_photo_id == 1 and photo.for_product_id == product.id %}
+                    <div class="row m-2"><img class="" width="200" src="{{ photo.img.url }}"></div>
+                    {% endif %}
+                    {% endfor %}
+                    <a class="row text-dark m-2" href="/product/category/{{ this_category.id }}/item/{{ product.id }}">{{ product.name }}</a>
+                    <div class="row mb-4">
+                        <div class="col m-2t ml-2">${{ product.unit_price }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div> <!-- End of section showing products-->
+            <div class="row">
+                <!-- Start of Page Pagination to control number of product shown-->
+                <div class="col-4 offset-5 text-center">
+                    {% if all_products.has_other_pages %}
+                    <ul class="pagination">
+                        {% if all_products.has_previous %}
+                        <li><a href="?page={{ all_products.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in all_products.paginator.page_range %}
+                        {% if all_products.number == i %}
+                        <li class="active ml-3"><span>{{ i }} <span class="sr-only">(current)</span> </span></li>
+                        {% else %}
+                        <li><a class="ml-3" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if all_products.has_next %}
+                        <li><a class="ml-3" href="?page={{ all_products.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div> <!-- End of Page Pagination to control number of product shown-->
+        </div> <!-- End of left box: products by category -->
+
+
+
+
+
+    </div> <!-- End of Container -->
+
+</body>
+
+</html>
+>>>>>>> eb34ec620fd3bdd40c7bcc49f9268a6863e1725f

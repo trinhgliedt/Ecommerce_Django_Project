@@ -23,7 +23,7 @@
                         {% for photo in this_product.photos.all %}
                         {% if photo.type_of_photo_id == 2 %}
                         <div class="row">
-                            <img class="col my-2" src="{{ photo.img.url }}">
+                            <a href="/product/category/{{this_category.id}}/item/{{this_product.id}}/{{photo.id}}"><img class="col my-2" src="{{ photo.img.url }}"></a>
                         </div>
                         {% endif %}
                         {% endfor %}    
@@ -55,7 +55,7 @@
                             {% endif %}
                         </select>
                     </div> 
-                    <button class=" btn btn-primary shadow" >Add to Cart</button>
+                    <button class=" btn btn-primary btn-sm shadow" >Add to Cart</button>
                 </form> <!-- End of price and quantity -->
             </div> <!-- End of details -->
         </div> <!-- End of product images and descriptions -->

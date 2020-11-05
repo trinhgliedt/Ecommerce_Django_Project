@@ -11,7 +11,11 @@ urlpatterns = [
     path('success', views.display_success),
     path('shopping_cart', views.display_shopping_cart),
     path('shopping_cart/process', views.process_shopping_cart),
+<<<<<<< HEAD
     path('search/', SearchResultsView.as_view(), name='search_results'),
     
+=======
+    path('product/category/<int:cat_id>/item/<int:product_id>/<int:photo_id>', views.switch_main_image),
+>>>>>>> eb34ec620fd3bdd40c7bcc49f9268a6863e1725f
     
 ]

@@ -8,39 +8,41 @@
 <body>
 <div class="container">
     {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
-    <table class="table table-bordered table-hover">  <!-- Order breakdown -->
+    <table class="table table-bordered table-hover col-11 mx-5">  <!-- Order breakdown -->
         <thead class="">
             <tr>
                 <th scope="col">Item</th>
-                <th scope="col">Price</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Total</th>
+                <th scope="col">Subtotal</th>
             </tr>
         </thead>
         <tbody>
-            {% for item, quantity in carts %}
-                <tr>
-                    <!-- <th scope="row">{{ Product.objects.get(id=int(item) }}</th> -->
-                    <th scope="row">{{ item.name }}</th>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.quantity }}
-                        <a href="item/update">update</a>
-                        <a href="item/delete">remove</a>
-                    </td>
-                    <td>{{ item.quantity*item.price }}</td>
-                </tr>
+            {% for item_details in cart_detail %}
+            <tr>
+                <td>{{ item_details.1 }}</td>
+                <td class="text-right pr-4">{{ item_details.2 }}</td>
+                <td class="text-right pr-4">{{ item_details.3 }}</td>
+                <td class="text-right pr-4">{{ item_details.4 }}</td>
+            </tr>
             {% endfor %}
+            <tr>
+                <td colspan="3" class="text-right">Total before sales tax: </td>
+                <td class="text-right pr-4">{{ total_before_tax_str }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Sales Tax: </td>
+                <td class="text-right pr-4">{{ sales_tax_str }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Total order: </td>
+                <td class="text-right pr-4 font-weight-bold">{{ total_after_tax }}</td>
+            </tr>
         </tbody>
     </table> <!-- End of order table -->
-
-        <div class="row font-weight-bold mb-2">
-            <div class="col-3 offset-9 text-right">Total: ${{ this_order.total }}</div>
-        </div>
-        <div class="row">
-            <div class="col-3 offset-9 text-right"><button type="button" class="btn btn-success shadow">Continue Shopping</button></div>
-        </div>
-    <div class="col-8 mx-3 mb-5"> <!-- Wrapper for shipping and billing info -->
-        <div class="row h4">Shipping Information</div>
+            <div class="col-3 offset-10"><button type="button" class=" btn btn-success ">Continue Shopping</button></div>
+    <div class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
+        <div class="row h4 my-4">Shipping Information</div>
         <div class="row my-1">
             <div class="col-3">First Name:</div>
             <div class="col-9"><textarea name="first_name" id="" cols="30" rows="1" required></textarea></div>
@@ -69,7 +71,7 @@
             <div class="col-3">Zipcode:</div>
             <div class="col-9"><textarea name="zipcode" id="" cols="30" rows="1" required maxlength=5></textarea></div>
         </div>
-        <div class="row h4 mt-3">Billing Information</div>
+        <div class="row h4 mt-3 my-4">Billing Information</div>
         <div class="row my-1">
             <div class="col-1 text-right"><input type="checkbox" name="same_as_shipping"></div>
             <div class="col"><label for="same_as_shipping">Same as Shipping</label></div>

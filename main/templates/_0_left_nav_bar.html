@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="main/static/projectStyle.css">
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'projectStyle.css' %}">
 </head>
+<style>
+    #side {
+        height: fit-content;
+        overflow-wrap: break-word;
+    }
+</style>
 <body>
+<<<<<<< HEAD
+    <div class="row mx-3">
+        <div id="side" class="col-sm-auto mr-3 border border-info p-4"> <!-- left box: category listing and search bar -->
+=======
     <div id="left_nav_bar" class="row mx-3">
         <div class=" col-2 mr-3 border border-info p-4"
         style="height: 220px;"
         > <!-- left box: category listing and search bar -->
+>>>>>>> eb34ec620fd3bdd40c7bcc49f9268a6863e1725f
         <div class="row mb-2">
-            <div class="col "> <!-- search box -->
+            <div class="col"> <!-- search box -->
                 <div class="input-group">
-                    <input class="form-control border-secondary py-2" type="search" placeholder="search">
+                    <form action="{% url 'search_results' %}" method="GET">
+                        <input name="p" class="form-control border-secondary py-2" type="text" placeholder="Search Products">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button">
                             <i class="fa fa-search"></i>
                         </button>
+                    </form>
                     </div>
                 </div>
             </div> <!-- End of search box -->

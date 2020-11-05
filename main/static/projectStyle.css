@@ -1,8 +1,11 @@
 * {
-    /* outline: 1px solid grey; */
+  /* outline: 1px solid grey; */
 }
 
 .form-control:focus {
+  outline: 0 !important;
+  border-color: initial;
+  box-shadow: none;
     outline: 0 !important;
     border-color: initial;
     box-shadow: none;

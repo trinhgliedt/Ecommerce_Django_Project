@@ -179,36 +179,42 @@ def display_success(request):
 
 def display_shopping_cart(request):
     quantity_in_cart = 0
+
     #cart_detail: more details about this cart. Each item in the cart is stored in an array called item_info
     cart_detail = []
     #declare variable for this product, to pull put unit price and product name from model
     this_product = None
     total_before_tax = 0
+    total_before_tax_str = ""
+    sales_tax_str =""
+    total_after_tax=""
     if "cart_dict" not in request.session:
         request.session["cart_dict"]={}
         request.session["quantity_in_cart"]=0
-    for key in request.session["cart_dict"]:
-        #quantity_in_cart: to display on top nav_bar
-        quantity_in_cart += request.session["cart_dict"][key]
-        #item_info: temporary variable inside loop, to store product id, name, unit price and quantity for each item in cart
-        item_info = []
-        this_product = Product.objects.get(id=int(key))
-        item_info.append(key) #product id, item_info[0]
-        item_info.append(this_product.name) # product name, item_info[1]
-        
-        #locale.setlocale is to convert to currency, with decimals and comma for thousand. I needed to make a few new string variables since the original float variables are needed for calculation
-        locale.setlocale(locale.LC_ALL, 'en_US')
+    if request.session["cart_dict"] != {}:
+        for key in request.session["cart_dict"]:
+            #quantity_in_cart: to display on top nav_bar
+            quantity_in_cart += request.session["cart_dict"][key]
+            #item_info: temporary variable inside loop, to store product id, name, unit price and quantity for each item in cart
+            item_info = []
+            this_product = Product.objects.get(id=int(key))
+            item_info.append(key) #product id, item_info[0]
+            item_info.append(this_product.name) # product name, item_info[1]
+            
+            #locale.setlocale is to convert to currency, with decimals and comma for thousand. I needed to make a few new string variables since the original float variables are needed for calculation
+            locale.setlocale(locale.LC_ALL, 'en_US')
 
-        item_info.append(locale.currency(this_product.unit_price, symbol=False, grouping=True)) # unit price, item_info[2]
-        item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]
-        item_info.append(locale.currency(this_product.unit_price*request.session["cart_dict"][key], symbol=False, grouping=True)) #subtotal for this item, item_info[4]
-        total_before_tax += this_product.unit_price*request.session["cart_dict"][key]
-        cart_detail.append(item_info)
-    total_before_tax_str = locale.currency(total_before_tax, symbol=True, grouping=True)
-    sales_tax_rate = 0.095
-    sales_tax = Decimal(total_before_tax)*Decimal(sales_tax_rate)
-    sales_tax_str = locale.currency(sales_tax, symbol=False, grouping=True)
-    total_after_tax = locale.currency((total_before_tax + sales_tax), symbol=True, grouping=True)
+            item_info.append(locale.currency(this_product.unit_price, symbol=False, grouping=True)) # unit price, item_info[2]
+            item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]
+            item_info.append(locale.currency(this_product.unit_price*request.session["cart_dict"][key], symbol=False, grouping=True)) #subtotal for this item, item_info[4]
+            total_before_tax += this_product.unit_price*request.session["cart_dict"][key]
+            cart_detail.append(item_info)
+        
+        total_before_tax_str = locale.currency(total_before_tax, symbol=True, grouping=True)
+        sales_tax_rate = 0.095
+        sales_tax = Decimal(total_before_tax)*Decimal(sales_tax_rate)
+        sales_tax_str = locale.currency(sales_tax, symbol=False, grouping=True)
+        total_after_tax = locale.currency((total_before_tax + sales_tax), symbol=True, grouping=True)
 
     context = {
         "cart_detail" : cart_detail,
@@ -222,8 +228,14 @@ def display_shopping_cart(request):
     # return redirect('/')
 
 def process_shopping_cart(request):
-    pass
-    # return redirect('/success')
+    if request.method == "POST":
+        quantity_in_cart = 0
+        request.session["cart_dict"] = {}
+        context = {
+            "quantity_in_cart": quantity_in_cart,
+        }
+        return render(request, "_4_z_success.html", context)
+    return redirect(f'/')
 
 def switch_main_image(request, cat_id, product_id, photo_id):
     print("cat_id: ", cat_id, ",product_id: ", product_id )
@@ -238,5 +250,13 @@ def switch_main_image(request, cat_id, product_id, photo_id):
     this_photo = Photo.objects.get(id = photo_id)
     this_photo.type_of_photo_id = 1
     this_photo.save()
-
     return redirect(f'/product/category/{cat_id}/item/{product_id}')
+
+def restore_stock(request):
+    # all_categories = Category.objects.all()
+    all_products = Product.objects.all()
+    for each_product in all_products:
+        if each_product.temp_quan_avail != each_product.quantity_available:
+            each_product.temp_quan_avail = each_product.quantity_available
+            each_product.save()
+    return redirect(request.META.get('HTTP_REFERER'))

@@ -7,3 +7,17 @@
     border-color: initial;
     box-shadow: none;
 }
+
+.developer_note {
+    background: radial-gradient(rgba(111, 215, 246, 0.842), rgba(174, 227, 236, 0.835));
+    /* border-radius: 10px; */
+}
+
+.developer_note p{
+    margin: 0 0;
+}
+#devNoteContent {display: none;}
+
+#devNoteHeader:hover ~ #devNoteContent {
+    display: block;
+}

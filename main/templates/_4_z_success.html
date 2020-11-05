@@ -9,18 +9,9 @@
 <body>
     <div id="container">
         <!-- Beg of container -->
-        <div class="row mx-3 mb-3 bg-info pt-4 pb-2">
-            <!-- Header bar -->
-            <div class="col h3 text-white">Logo
-                <!-- <img src="../images/logo.png" width="80" alt="logo"> -->
-            </div>
-            <div class="col text-white text-right">
-                <a class="text-white" href="/check_out">Shopping Cart  ({{quantity_in_cart}}) </a>
-            </div>
-        </div> <!-- End of Header bar -->
-            <p class="row ml-5 mt-5">Your items have been added to your cart successfully</p>
+        {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
+            <p class="row ml-5 mt-5">Thank you for placing your order! Your order is now being processed and will be shipped within 2-5 business days. </p>
             <a class="row ml-5" href="/">Continue shopping</a>
-            <a class="row ml-5" href="">Go to cart</a>
     </div> <!-- End of container -->
 </body>
 

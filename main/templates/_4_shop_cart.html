@@ -8,6 +8,7 @@
 <body>
 <div class="container">
     {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
+    <h2 class="text-center mb-4">Your shopping cart</h2>
     <table class="table table-bordered table-hover col-11 mx-5">  <!-- Order breakdown -->
         <thead class="">
             <tr>
@@ -40,8 +41,23 @@
             </tr>
         </tbody>
     </table> <!-- End of order table -->
-            <div class="col-3 offset-10"><button type="button" class=" btn btn-success ">Continue Shopping</button></div>
-    <div class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
+            <div style="margin-left:64.5%; margin-bottom: 100px" class="col-6">
+                <a type="button" class=" btn btn-info" href="/">Continue Shopping</a> 
+                <form style="display:inline" method="POST" action="shopping_cart/process">
+                    {% csrf_token %}
+                    {% if quantity_in_cart > 0 %}
+                    <button type="submit" class=" btn btn-success ml-2" 
+                    >Confirm your order</button>
+                    {% endif %}
+                    {% if quantity_in_cart == 0 %}
+                    <button type="submit" class=" btn btn-success ml-2" disabled
+                    >Confirm your order</button>
+                    {% endif %}
+                </form>
+                
+            </div>
+    <div style="display: none"  class="col-8 offset-2 mb-5 ml-5 pl-5"> <!-- Wrapper for shipping and billing info -->
+        <div>Developer note: This website is for demonstration purpose only and not for actual trade. Any payment information you provided below will not be processed.</div>
         <div class="row h4 my-4">Shipping Information</div>
         <div class="row my-1">
             <div class="col-3">First Name:</div>
@@ -118,7 +134,7 @@
                 <input type="number" min="2020" max="2040" name="card_exp_year"></div>
         </div>
         <div class="row my-1">
-            <div class="col-3 offset-5 text-right"><button type="button" class="btn btn-success shadow">Pay</button></div>
+            <div class="col-3 offset-5 text-right"><button disabled type="button" class="btn btn-success shadow">Pay</button></div>
             
         </div>
         

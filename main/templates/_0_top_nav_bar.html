@@ -3,7 +3,7 @@
 <head>
 </head>
 <body>
-    <div id = "navbar_top" class="navbar sticky-top row mx-3 mb-3 bg-info pt-0 pb-2"> <!-- Header bar -->
+    <div id = "navbar_top" class="navbar sticky-top row mx-3 mb-0 bg-info pt-0 pb-2"> <!-- Header bar -->
         {% load static %}
         <img src="{% static "logos/blueSunflower.png" %}" alt="logo" width="60" id="logoImg" class="ml-2"/>
         <div class="col h2 text-white mt-4" id="logoText">S u n f l<span><img src="{% static "logos/sunflower2.png" %}" alt="logo" width="30" class="mx-0" /></span>w e r s</div>
@@ -11,5 +11,33 @@
             <a class="text-white " href="/shopping_cart">Shopping Cart  ({{quantity_in_cart}}) </a>
         </div> 
     </div> <!-- End of Header bar -->
+    <div class="developer_note px-4 py-2 mb-4 mx-3"> <!-- Beg of developer note -->
+        <div  id="devNoteHeader">
+            <h6 style="display:inline">
+                Hover your mouse to see note from developers 
+            </h6>
+            <form style="display:inline" method="POST" action="/restore_stock">
+                {% csrf_token %}
+                <button id="restoreStock" type="submit" class=" ml-5 btn btn-sm btn-info shadow" 
+                >Restore stock</button>
+            </form>
+        </div>
+
+        <div id="devNoteContent">
+            <p>
+                This website is to demonstrate our skills in building an eCommerce app using Django framework and it is not intended for actual trade. 
+            </p>
+            <p>
+                There are a lot more for us to work on to make it a real trade site.
+            </p>
+            <p>
+                As items are added to your shopping cart the available quantity for those items will be reduced, and when the available quantity goes down to 0 the item will no longer be displayed on the page.
+            </p>
+            <p>
+                To restore the stock quantity, click on the "Restore stock" button above.
+            </p>
+        </div>
+    </div> <!-- End of developer note -->
+    
 </body>
 </html>

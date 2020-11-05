@@ -11,5 +11,7 @@ urlpatterns = [
     path('shopping_cart', views.display_shopping_cart),
     path('shopping_cart/process', views.process_shopping_cart),
     path('product/category/<int:cat_id>/item/<int:product_id>/<int:photo_id>', views.switch_main_image),
+    path('restore_stock', views.restore_stock),
+
     
 ]

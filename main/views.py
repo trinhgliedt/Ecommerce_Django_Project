@@ -7,7 +7,9 @@ from django.contrib import messages
 # from datetime import datetime
 # from time import strftime, strptime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
+# below: imports for search
+from django.views.generic import ListView, TemplateView
+from django.db.models import Q
 
 
 def index(request):
@@ -179,3 +181,23 @@ def process_shopping_cart(request):
     pass
     # return redirect('/success')
     return redirect('/')
+
+# search results views
+class SearchResultsView(ListView):
+    model = Product
+    template_name = '_13_search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('p')
+        product_list = Product.objects.filter(Q(name__icontains=query))
+
+        # context = {
+        #     "product_list": Product.objects.filter(Q(name__icontains=query)),
+        #     "all_photos": Photo.objects.all(),
+        # }
+        return product_list
+    
+    def get_context(self, request):
+        all_photos = Photo.objects.all()
+        
+        return all_photos

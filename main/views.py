@@ -24,10 +24,26 @@ def index(request):
     }
     return render(request, '_1_shop_main.html', context)
 
-def display_category(request, cat_id ):
+def process_product_sort(request, cat_id ):
+    if request.method == "POST":
+        if request.POST["sorted_by"] == "price":
+            
+            return display_category(request, cat_id, "price")
+        if request.POST["sorted_by"] == "popularity":
+            return display_category(request, cat_id, "popularity")
+    return redirect(f'/product/category/'+str(cat_id))
+    
+def display_category(request, cat_id, sort_by="no_sort" ):
 
     product_list = Product.objects.filter(category_id=cat_id).exclude(temp_quan_avail=0)
-    products_by_price = product_list.order_by("unit_price")
+    if sort_by == "price":
+        products_by_price = product_list.order_by("unit_price")
+        product_list = products_by_price
+    if sort_by == "popularity":
+        #Well, popularity of a product will be based on available quantity for now, until we have a system for customer rating of products
+        products_by_popularity = product_list.order_by("-quantity_available") 
+        product_list = products_by_popularity
+
     page = request.GET.get('page', 1)
     paginator = Paginator(product_list, 8)
     try:
@@ -59,13 +75,13 @@ def display_category(request, cat_id ):
         first_photo = photos.first()
         first_photo.type_of_photo_id = 1
         first_photo.save()
-        print("photos: ", photos, ", photos.first():", photos.first(), "photos.first().type_of_photo_id: ",photos.first().type_of_photo_id)
+        # print("photos: ", photos, ", photos.first():", photos.first(), "photos.first().type_of_photo_id: ",photos.first().type_of_photo_id)
 
     context = {
         "all_categories": Category.objects.all(),
         "this_category": Category.objects.get(id=cat_id),
         "all_products": all_products,
-        "products_by_price": products_by_price,
+        # "products_by_price": products_by_price,
         "all_photos": Photo.objects.all(),
         "paginator": paginator,
         'page_obj': page_obj,

@@ -31,7 +31,7 @@ def process_product_sort(request, cat_id ):
             return display_category(request, cat_id, "price")
         if request.POST["sorted_by"] == "popularity":
             return display_category(request, cat_id, "popularity")
-    return redirect(f'/product/category/'+str(cat_id))
+    # return redirect(f'/product/category/'+str(cat_id))
     
 def display_category(request, cat_id, sort_by="no_sort" ):
 
@@ -253,9 +253,6 @@ def process_shopping_cart(request):
             "quantity_in_cart": quantity_in_cart,
         }
         return render(request, "_4_z_success.html", context)
-    return redirect(f'/')
-    pass
-    # return redirect('/success')
     return redirect('/')
 
 # search results views
@@ -269,7 +266,7 @@ class SearchResultsView(ListView):
         result = super(SearchResultsView, self).get_queryset()
         query = self.request.GET.get('search')
         if query:
-            postresult = Product.objects.filter(name__contains=query)
+            postresult = Product.objects.filter(name__contains=query).exclude(temp_quan_avail=0)
             result = postresult
         else:
             result = None
@@ -278,14 +275,14 @@ class SearchResultsView(ListView):
     
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        session = self.request.session
+        context = super(SearchResultsView, self).get_context_data(**kwargs)
         # all_photos = Photo.objects.all()
         context['all_photos'] = Photo.objects.all()
-        if "cart_dict" not in self.request.session:
-            self.request.session["cart_dict"]={}
-            self.request.session["quantity_in_cart"]=0
-        quantity_in_cart = self.request.session["quantity_in_cart"]
-        context['quantity_in_cart'] = quantity_in_cart
+        # if "cart_dict" not in self.request.session:
+        #     self.request.session["cart_dict"]={}
+        #     self.request.session["quantity_in_cart"]=0
+        context['quantity_in_cart'] = session["quantity_in_cart"]
         return context
 
 def switch_main_image(request, cat_id, product_id, photo_id):

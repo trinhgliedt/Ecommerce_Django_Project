@@ -246,21 +246,31 @@ def process_shopping_cart(request):
 class SearchResultsView(ListView):
     model = Product
     template_name = '_13_search_results.html'
+    context_object_name = 'all_search_results'
+    # all_photos = Photo.objects.all()
 
     def get_queryset(self):
-        query = self.request.GET.get('p')
-        product_list = Product.objects.filter(Q(name__icontains=query))
-
-        # context = {
-        #     "product_list": Product.objects.filter(Q(name__icontains=query)),
-        #     "all_photos": Photo.objects.all(),
-        # }
+        result = super(SearchResultsView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = Product.objects.filter(name__contains=query)
+            result = postresult
+        else:
+            result = None
+        product_list = result
         return product_list
     
-    def get_context(self, request):
-        all_photos = Photo.objects.all()
-        
-        return all_photos
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # all_photos = Photo.objects.all()
+        context['all_photos'] = Photo.objects.all()
+        if "cart_dict" not in self.request.session:
+            self.request.session["cart_dict"]={}
+            self.request.session["quantity_in_cart"]=0
+        quantity_in_cart = self.request.session["quantity_in_cart"]
+        context['quantity_in_cart'] = quantity_in_cart
+        return context
 
 def switch_main_image(request, cat_id, product_id, photo_id):
     print("cat_id: ", cat_id, ",product_id: ", product_id )

@@ -1,122 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% include "_0_head_tags.html" %}
-    <!-- Import Header tags -->
+
+<head>
+    {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
     <title>Products</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="container">
-      {% include "_0_top_nav_bar.html" %}
-      <!-- Import nav_bar for logo and shopping cart -->
-      {% include "_0_left_nav_bar.html" %}
-      <!-- Import nav_bar for category listing -->
-      <div class="col border border-info p-3">
-        <!-- right box: products by category -->
-        <div class="row">
-          <!-- 1st row: category name and nav links -->
-          <div class="col-6 h3">{{ this_category.name }}</div>
-          <div class="col text-right mb-1">
-            <!-- start of Page Pagination Nav Bar-->
-            <span class="step-links">
-              {% if page_obj.has_previous %}
-              <a href="?page=1">&laquo; first</a>
-              <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-              {% endif %}
+        {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
+        {% include "_0_left_nav_bar.html" %}  <!-- Import nav_bar for category listing -->
+        <div class="col border border-info p-3">
+            <!-- right box: products by category -->
+            <div class="row">
+                <!-- 1st row: category name and nav links -->
+                <div class="col-6 h3">{{ this_category.name }}</div>
+                <div class="col text-right mb-1">
+                    <!-- start of Page Pagination Nav Bar-->
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
 
-              <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                |
-              </span>
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+                        </span>
 
-              {% if page_obj.has_next %}
-              <a href="?page={{ page_obj.next_page_number }}">next</a> |
-              <a href="?page={{ page_obj.paginator.num_pages }}"
-                >last &raquo;</a
-              >
-              {% endif %}
-            </span>
-          </div>
-          <!-- End of Page Pagination Nav Bar-->
-        </div>
-        <!-- <div class="row"> -->
-        <form class="row" action="" method="POST">
-          <div class="col-2 mb-2 text-right offset-8">Sorted by</div>
-          <div class="col">
-            <select name="sorted_by" id="">
-              <option value="price">Price</option>
-              <option value="price">Most Popular</option>
-            </select>
-          </div>
-        </form>
-        <!-- </div> -->
-        <div class="row mt-2">
-          <!-- Start of section showing products-->
-          {% for product in all_products %} {% if product.category_id ==
-          this_category.id and product.temp_quan_avail > 0 %}
-          <div class="col-3">
-            {% for photo in all_photos %} {% if photo.type_of_photo_id == 1 and
-            photo.for_product_id == product.id %}
-            <div class="row m-2">
-              <img class="" width="200" src="{{ photo.img.url }}" />
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a> |
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div> <!-- End of Page Pagination Nav Bar-->
+
             </div>
-<<<<<<< HEAD
-            {% endif %} {% endfor %}
-            <!-- <div class="row m-2">{{ product.name }}</div> -->
-            <a
-              class="row text-dark m-2"
-              href="/product/category/{{ this_category.id }}/item/{{ product.id }}"
-              >{{ product.name }}</a
-            >
-            <div class="row mb-4">
-              <div class="col m-2t ml-2">${{ product.unit_price }}</div>
-            </div>
-          </div>
-          {% endif %} {% endfor %}
-        </div>
-        <!-- End of section showing products-->
-        <div class="row">
-          <!-- Start of Page Pagination to control number of product shown-->
-          <div class="col-4 offset-5 text-center">
-            {% if all_products.has_other_pages %}
-            <ul class="pagination">
-              {% if all_products.has_previous %}
-              <li>
-                <a href="?page={{ all_products.previous_page_number }}"
-                  >&laquo;</a
-                >
-              </li>
-              {% else %}
-              <li class="disabled"><span>&laquo;</span></li>
-              {% endif %} {% for i in all_products.paginator.page_range %} {% if
-              all_products.number == i %}
-              <li class="active ml-3">
-                <span>{{ i }} <span class="sr-only">(current)</span> </span>
-              </li>
-              {% else %}
-              <li><a class="ml-3" href="?page={{ i }}">{{ i }}</a></li>
-              {% endif %} {% endfor %} {% if all_products.has_next %}
-              <li>
-                <a class="ml-3" href="?page={{ all_products.next_page_number }}"
-                  >&raquo;</a
-                >
-              </li>
-              {% else %}
-              <li class="disabled"><span>&raquo;</span></li>
-              {% endif %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-        <!-- End of Page Pagination to control number of product shown-->
-      </div>
-      <!-- End of left box: products by category -->
-    </div>
-    <!-- End of Container -->
-  </body>
-</html>
-=======
             <!-- <div class="row"> -->
             <form class="row" action="" method="POST">
                 <div class="col-2 mb-2 text-right offset-8">Sorted by</div>
@@ -138,6 +57,7 @@
                     <div class="row m-2"><img class="" width="200" src="{{ photo.img.url }}"></div>
                     {% endif %}
                     {% endfor %}
+                    <!-- <div class="row m-2">{{ product.name }}</div> -->
                     <a class="row text-dark m-2" href="/product/category/{{ this_category.id }}/item/{{ product.id }}">{{ product.name }}</a>
                     <div class="row mb-4">
                         <div class="col m-2t ml-2">${{ product.unit_price }}</div>
@@ -183,4 +103,3 @@
 </body>
 
 </html>
->>>>>>> eb34ec620fd3bdd40c7bcc49f9268a6863e1725f

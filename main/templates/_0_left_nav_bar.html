@@ -12,26 +12,25 @@
     }
 </style>
 <body>
-<<<<<<< HEAD
     <div class="row mx-3">
         <div id="side" class="col-sm-auto mr-3 border border-info p-4"> <!-- left box: category listing and search bar -->
-=======
     <div id="left_nav_bar" class="row mx-3">
         <div class=" col-2 mr-3 border border-info p-4"
         style="height: 220px;"
         > <!-- left box: category listing and search bar -->
->>>>>>> eb34ec620fd3bdd40c7bcc49f9268a6863e1725f
         <div class="row mb-2">
-            <div class="col"> <!-- search box -->
+            
+
+            <div class="col "> <!-- search box -->
+                <form style="display:inline" class="m-0" action="{% url 'search' %}" method="GET">
                 <div class="input-group">
-                    <form action="{% url 'search_results' %}" method="GET">
-                        <input name="p" class="form-control border-secondary py-2" type="text" placeholder="Search Products">
+                        <input name="search" class="form-control border-secondary py-2" type="text" placeholder="Search">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">
+                        <button class="btn btn-outline-secondary" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
-                    </form>
                     </div>
+                </form>
                 </div>
             </div> <!-- End of search box -->
         </div>

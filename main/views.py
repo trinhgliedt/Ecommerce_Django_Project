@@ -255,35 +255,55 @@ def process_shopping_cart(request):
         return render(request, "_4_z_success.html", context)
     return redirect('/')
 
-# search results views
-class SearchResultsView(ListView):
-    model = Product
-    template_name = '_13_search_results.html'
-    context_object_name = 'all_search_results'
-    # all_photos = Photo.objects.all()
 
-    def get_queryset(self):
-        result = super(SearchResultsView, self).get_queryset()
-        query = self.request.GET.get('search')
-        if query:
-            postresult = Product.objects.filter(name__contains=query).exclude(temp_quan_avail=0)
-            result = postresult
-        else:
-            result = None
-        product_list = result
-        return product_list
-    
-    
-    def get_context_data(self, **kwargs):
-        session = self.request.session
-        context = super(SearchResultsView, self).get_context_data(**kwargs)
-        # all_photos = Photo.objects.all()
-        context['all_photos'] = Photo.objects.all()
-        # if "cart_dict" not in self.request.session:
-        #     self.request.session["cart_dict"]={}
-        #     self.request.session["quantity_in_cart"]=0
-        context['quantity_in_cart'] = session["quantity_in_cart"]
-        return context
+def search_product_by_name(request):
+    query = request.GET.get('search')
+    if query:
+        postresult = Product.objects.filter(name__contains=query).exclude(temp_quan_avail=0)
+        product_list = postresult
+    else:
+        product_list = Product.objects.all()
+    if "cart_dict" not in request.session:
+        quantity_in_cart = 0
+    else:
+        quantity_in_cart = 0
+        for key in request.session["cart_dict"]:
+            quantity_in_cart += request.session["cart_dict"][key]
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(product_list, 8)
+    try:
+        product_list = paginator.page(page)
+    except PageNotAnInteger:
+        product_list = paginator.page(1)
+    except EmptyPage:
+        product_list = paginator.page(paginator.num_pages)
+        
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # reset the main photo for all products in this category to be the first photo in the photo list
+    for each_product in product_list:
+        photos = Photo.objects.filter(for_product = each_product)
+        for photo in photos:
+            if photo.type_of_photo_id == 1:
+                photo.type_of_photo_id = 2
+                photo.save()
+        first_photo = photos.first()
+        first_photo.type_of_photo_id = 1
+        first_photo.save()
+
+    context = {
+        "all_search_results": product_list,
+        # "products_by_price": products_by_price,
+        "all_photos": Photo.objects.all(),
+        "paginator": paginator,
+        'page_obj': page_obj,
+        "quantity_in_cart": quantity_in_cart,
+    }
+    return render(request, '_13_search_results.html', context)
+
+
 
 def switch_main_image(request, cat_id, product_id, photo_id):
     print("cat_id: ", cat_id, ",product_id: ", product_id )

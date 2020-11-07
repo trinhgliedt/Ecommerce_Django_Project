@@ -15,6 +15,25 @@
     <!-- Import nav_bar for category listing -->
     <div class="col border border-info p-3" style="min-width:800px;">
       <!-- right box: products by category -->
+      <div class="col text-right mb-1">
+        <!-- start of Page Pagination Nav Bar-->
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a> |
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div> <!-- End of Page Pagination Nav Bar-->
+
       <div class="row mt-2">
         <!-- Start of section showing products-->
         {% for product in all_search_results %}
@@ -32,7 +51,34 @@
         </div>
         {% endfor %}
       </div> <!-- End of section showing products-->
+      
       <div class="row">
+        <!-- Start of Page Pagination to control number of product shown-->
+        <div class="col-4 offset-5 text-center">
+            {% if all_search_results.has_other_pages %}
+            <ul class="pagination">
+                {% if all_search_results.has_previous %}
+                <li><a href="?page={{ all_search_results.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in all_search_results.paginator.page_range %}
+                {% if all_search_results.number == i %}
+                <li class="active ml-3"><span>{{ i }} <span class="sr-only">(current)</span> </span></li>
+                {% else %}
+                <li><a class="ml-3" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if all_search_results.has_next %}
+                <li><a class="ml-3" href="?page={{ all_search_results.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+    </div> <!-- End of Page Pagination to control number of product shown-->
+
       </div>
       <!-- End of left box: products by category -->
     </div>

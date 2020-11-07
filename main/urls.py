@@ -1,7 +1,6 @@
 from django.urls import path
 # from django.views.generic.base import RedirectView
 from . import views
-from .views import SearchResultsView
 
 urlpatterns = [
     path('', views.index),
@@ -13,7 +12,7 @@ urlpatterns = [
     path('success', views.display_success),
     path('shopping_cart', views.display_shopping_cart),
     path('shopping_cart/process', views.process_shopping_cart),
-    path('results/', SearchResultsView.as_view(), name='search'),
+    path('results/', views.search_product_by_name, name='search'),
     path('product/category/<int:cat_id>/item/<int:product_id>/<int:photo_id>', views.switch_main_image),
     path('restore_stock', views.restore_stock),
 

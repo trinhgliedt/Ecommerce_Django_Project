@@ -37,23 +37,29 @@
 
             </div>
             <!-- <div class="row"> -->
-            <form style="display:none" id="sort_form" class="row" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
+            <form style="" id="sort_form" class="row" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
               {% csrf_token %}
                 <div class="col-2 mb-2 text-right offset-8">Sort by</div>
                 <div class="col">
                     <select name="sorted_by" id="sorted_by" onchange="this.form.submit()">
-                        <option value="" disabled selected>Please choose</option>
-                        <option value="price">Price</option>
-                        <option value="popularity">Most Popular</option>
+                        <option value="" disabled 
+                        {% if request.session.sorted_by == "no_sort" %}
+                        selected
+                        {% endif %}
+                        >Please choose</option>
+                        <option value="price"
+                        {% if request.session.sorted_by == "price" %}
+                        selected
+                        {% endif %}
+                        >Price</option>
+                        <option value="popularity"
+                        {% if request.session.sorted_by == "popularity" %}
+                        selected
+                        {% endif %}
+                        >Most Popular</option>
                     </select>
                 </div>
             </form>
-            <!-- <script>
-              $(".sorted_by").change(function(){
-                  value = $(this).val()
-                  $('.sort_form').attr('action', "/product/category/{{ this_category.id }}/process_sort/" + value)
-              });
-            </script> -->
             <!-- </div> -->
             <div style="min-width:800px;" class="row mt-2">
                 <!-- Start of section showing products-->

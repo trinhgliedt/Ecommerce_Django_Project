@@ -36,7 +36,7 @@
         </div>
         <div class="row h6">Categories</div>
         {% for category in all_categories %}
-        <a class="text-dark" href="/product/category/{{ category.id }}">{{ category.name }}</a><br>
+        <a class="text-dark" href="/product/category/{{ category.id }}/no_sort">{{ category.name }}</a><br>
         {% endfor %}
         <a class="text-dark" href="/">Show all</a>
     </div>

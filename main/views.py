@@ -27,22 +27,31 @@ def index(request):
 def process_product_sort(request, cat_id ):
     if request.method == "POST":
         if request.POST["sorted_by"] == "price":
-            
-            return display_category(request, cat_id, "price")
+            request.session["sorted_by"] = "price"
+            return redirect(f'/product/category/'+str(cat_id))
         if request.POST["sorted_by"] == "popularity":
-            return display_category(request, cat_id, "popularity")
-    # return redirect(f'/product/category/'+str(cat_id))
-    
-def display_category(request, cat_id, sort_by="no_sort" ):
+            request.session["sorted_by"] = "popularity"
+            return redirect(f'/product/category/'+str(cat_id))
+    return redirect(f'/product/category/'+str(cat_id))
+
+def process_cat_display_no_sort(request, cat_id):
+    request.session["sorted_by"] = "no_sort"
+    return redirect(f'/product/category/'+str(cat_id))
+
+def display_category(request, cat_id):
 
     product_list = Product.objects.filter(category_id=cat_id).exclude(temp_quan_avail=0)
-    if sort_by == "price":
+    if "sorted_by" not in request.session:
+        request.session["sorted_by"] = "no_sort"
+    if request.session["sorted_by"] == "price":
         products_by_price = product_list.order_by("unit_price")
         product_list = products_by_price
-    if sort_by == "popularity":
+    elif request.session["sorted_by"] == "popularity":
         #Well, popularity of a product will be based on available quantity for now, until we have a system for customer rating of products
         products_by_popularity = product_list.order_by("-quantity_available") 
         product_list = products_by_popularity
+    else:
+        product_list = Product.objects.filter(category_id=cat_id).exclude(temp_quan_avail=0)
 
     page = request.GET.get('page', 1)
     paginator = Paginator(product_list, 8)
@@ -295,7 +304,6 @@ def search_product_by_name(request):
 
     context = {
         "all_search_results": product_list,
-        # "products_by_price": products_by_price,
         "all_photos": Photo.objects.all(),
         "paginator": paginator,
         'page_obj': page_obj,

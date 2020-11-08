@@ -5,7 +5,6 @@
 img {
   height: auto !important;
 }
-
 .form-control:focus {
   outline: 0 !important;
   border-color: initial;

@@ -2,6 +2,9 @@
   /* outline: 1px solid grey; */
   font-size:1.5vw;
 }
+img {
+  height: auto !important;
+}
 
 .form-control:focus {
   outline: 0 !important;

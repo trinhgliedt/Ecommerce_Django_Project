@@ -5,18 +5,12 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'projectStyle.css' %}">
 </head>
-<style>
-    #side {
-        height: fit-content;
-        overflow-wrap: break-word;
-    }
-</style>
 <body>
     <div class="row mx-3">
-        <div id="side" class="col-sm-auto mr-3  border-info p-3"> <!-- left box: category listing and search bar -->
+        <div id="side" class="col-sm-auto mr-3 border-info p-3"> <!-- left box: category listing and search bar -->
     <div id="left_nav_bar" class="row mx-3">
         <div class=" col-2 mr-3 border border-info p-4"
-        style="height: 220px;"
+        style="height: 50%;"
         > <!-- left box: category listing and search bar -->
         <div class="row mb-2">
             
@@ -34,7 +28,7 @@
                 </div>
             </div> <!-- End of search box -->
         </div>
-        <div class="row h6">Categories</div>
+        <div class="row h6 ml-0 ">Categories</div>
         {% for category in all_categories %}
         <a class="text-dark" href="/product/category/{{ category.id }}/no_sort">{{ category.name }}</a><br>
         {% endfor %}

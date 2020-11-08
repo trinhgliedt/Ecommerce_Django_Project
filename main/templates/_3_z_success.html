@@ -3,7 +3,24 @@
 
 <head>
     {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
-    <title>Product Information</title>
+    <style>
+        * {
+            /* outline: 1px solid grey; */
+            font-size:1.5vw;
+            }
+        #devNoteContent {display: none;}
+        #devNoteHeader:hover ~ #devNoteContent {
+            display: block;
+        }
+        .developer_note {
+            background: radial-gradient(rgba(111, 215, 246, 0.842), rgba(174, 227, 236, 0.835));
+        }
+
+        .developer_note p{
+            margin: 0 0;
+        }
+    </style>
+    <title>Success</title>
 </head>
 
 <body>

@@ -37,9 +37,9 @@
 
             </div>
             <!-- <div class="row"> -->
-            <form style="" id="sort_form" class="row" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
+            <form style="margin-left:60%" id="sort_form" class="row" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
               {% csrf_token %}
-                <div class="col-2 mb-2 text-right offset-8">Sort by</div>
+                <div class="col-2 mb-2 text-right ">Sort by</div>
                 <div class="col">
                     <select name="sorted_by" id="sorted_by" onchange="this.form.submit()">
                         <option value="" disabled 
@@ -61,19 +61,19 @@
                 </div>
             </form>
             <!-- </div> -->
-            <div style="min-width:800px;" class="row mt-2">
+            <div style="" class="row mt-2">
                 <!-- Start of section showing products-->
                 {% for product in all_products %}
                 {% if product.category_id == this_category.id and product.temp_quan_avail > 0 %}
                 <div class="col-3">
                     {% for photo in all_photos %}
                     {% if photo.type_of_photo_id == 1 and photo.for_product_id == product.id %}
-                    <div class="row m-2"><img class="" width="200" src="{{ photo.img.url }}"></div>
+                    <div class="row m-2"><img class="" style="width:80%"  src="{{ photo.img.url }}"></div>
                     {% endif %}
                     {% endfor %}
                     <a class="row text-dark m-2" href="/product/category/{{ this_category.id }}/item/{{ product.id }}">{{ product.name }}</a>
                     <div class="row mb-4">
-                        <div class="col m-2t ml-2">${{ product.unit_price }}</div>
+                        <div class="col ml-2">${{ product.unit_price }}</div>
                     </div>
                 </div>
                 {% endif %}

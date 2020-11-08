@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
+    
     <title>Product Information</title>
+    <style>
+        * {
+            /* outline: 1px solid grey; */
+            font-size:1.5vw;
+            }
+        #devNoteContent {display: none;}
+        #devNoteHeader:hover ~ #devNoteContent {
+            display: block;
+        }
+        .developer_note {
+            background: radial-gradient(rgba(111, 215, 246, 0.842), rgba(174, 227, 236, 0.835));
+        }
+
+        .developer_note p{
+            margin: 0 0;
+        }
+    </style>
+    {% include "_0_head_tags.html" %}  
+    <!-- Import Header tags -->
 </head>
 <body>
     <div id="container"> <!-- Beg of container -->
+        
         {% include "_0_top_nav_bar.html" %}  <!-- Import nav_bar for logo and shopping cart -->
+
+
+
         <a class="row mx-5 mb-3" href="/product/category/{{ this_category.id }}">Go Back</a>
         {% for msg in messages %}
             <p class="ml-4" style="color: red">{{ msg }}</p>

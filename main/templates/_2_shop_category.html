@@ -4,6 +4,23 @@
 
 <head>
     {% include "_0_head_tags.html" %}  <!-- Import Header tags -->
+    <style>
+        * {
+            /* outline: 1px solid grey; */
+            font-size:1.5vw;
+            }
+        #devNoteContent {display: none;}
+        #devNoteHeader:hover ~ #devNoteContent {
+            display: block;
+        }
+        .developer_note {
+            background: radial-gradient(rgba(111, 215, 246, 0.842), rgba(174, 227, 236, 0.835));
+        }
+
+        .developer_note p{
+            margin: 0 0;
+        }
+    </style>
     <title>Products</title>
 </head>
 
@@ -37,10 +54,10 @@
 
             </div>
             <!-- <div class="row"> -->
-            <form style="margin-left:60%" id="sort_form" class="row" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
+            <form style="" id="sort_form" class="text-right" action="/product/category/{{ this_category.id }}/process_sort" method="POST">
               {% csrf_token %}
-                <div class="col-2 mb-2 text-right ">Sort by</div>
-                <div class="col">
+                <div style="display:inline" class="mb-2 text-right mr-2">Sort by:</div>
+                <div style="display:inline" class="">
                     <select name="sorted_by" id="sorted_by" onchange="this.form.submit()">
                         <option value="" disabled 
                         {% if request.session.sorted_by == "no_sort" %}

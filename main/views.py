@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import *
-import bcrypt
+# import bcrypt
 from django.contrib import messages
 from decimal import Decimal
 import locale
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# below: imports for search
-from django.views.generic import ListView, TemplateView
-from django.db.models import Q
 
 
 def index(request):
@@ -47,7 +44,7 @@ def display_category(request, cat_id):
         products_by_price = product_list.order_by("unit_price")
         product_list = products_by_price
     elif request.session["sorted_by"] == "popularity":
-        #Well, popularity of a product will be based on available quantity for now, until we have a system for customer rating of products
+        #Popularity of a product will be based on available quantity for now, until we have a system for customer rating of products
         products_by_popularity = product_list.order_by("-quantity_available") 
         product_list = products_by_popularity
     else:
@@ -205,15 +202,53 @@ def display_success(request):
 
 
 def display_shopping_cart(request):
-    
+    quantity_in_cart = 0
+
+    #cart_detail: more details about this cart. Each item in the cart is stored in an array called item_info
+    cart_detail = []
+    #declare variable for this product, to pull put unit price and product name from model
+    this_product = None
+    total_before_tax = 0
+    total_before_tax_str = ""
+    sales_tax_str =""
+    total_after_tax=""
+    if "cart_dict" not in request.session:
+        request.session["cart_dict"]={}
+        request.session["quantity_in_cart"]=0
+    if request.session["cart_dict"] != {}:
+        for key in request.session["cart_dict"]:
+            #quantity_in_cart: to display on top nav_bar
+            quantity_in_cart += request.session["cart_dict"][key]
+            #item_info: temporary variable inside loop, to store product id, name, unit price and quantity for each item in cart
+            item_info = []
+            this_product = Product.objects.get(id=int(key))
+            item_info.append(key) #product id, item_info[0]
+            item_info.append(this_product.name) # product name, item_info[1]
+            
+            #locale.setlocale is to convert to currency, with decimals and comma for thousand. I needed to make a few new string variables since the original float variables are needed for calculation
+            locale.setlocale(locale.LC_ALL, 'en_US')
+
+            item_info.append(locale.currency(this_product.unit_price, symbol=False, grouping=True)) # unit price, item_info[2]
+            item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]
+            item_info.append(locale.currency(this_product.unit_price*request.session["cart_dict"][key], symbol=False, grouping=True)) #subtotal for this item, item_info[4]
+            total_before_tax += this_product.unit_price*request.session["cart_dict"][key]
+            cart_detail.append(item_info)
+        
+        total_before_tax_str = locale.currency(total_before_tax, symbol=True, grouping=True)
+        sales_tax_rate = 0.095
+        sales_tax = Decimal(total_before_tax)*Decimal(sales_tax_rate)
+        sales_tax_str = locale.currency(sales_tax, symbol=False, grouping=True)
+        total_after_tax = locale.currency((total_before_tax + sales_tax), symbol=True, grouping=True)
 
     context = {
-        "cart_detail" : [],
-        "quantity_in_cart": 0,
-        "total_before_tax_str": 0,
-        "sales_tax_str": 0,
-        "total_after_tax": 0,
+        "cart_detail" : cart_detail,
+        "quantity_in_cart": quantity_in_cart,
+        "total_before_tax_str": total_before_tax_str,
+        "sales_tax_str": sales_tax_str,
+        "total_after_tax": total_after_tax,
     }
+    print('cart_detail:', cart_detail)
+    print('request.session["cart_dict"]:', request.session["cart_dict"])
     return render(request, "_4_shop_cart.html", context)
 
 def process_shopping_cart(request):

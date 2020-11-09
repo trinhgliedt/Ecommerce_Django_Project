@@ -226,7 +226,7 @@ def display_shopping_cart(request):
             item_info.append(this_product.name) # product name, item_info[1]
             
             #locale.setlocale is to convert to currency, with decimals and comma for thousand. I needed to make a few new string variables since the original float variables are needed for calculation
-            locale.setlocale(locale.LC_ALL, 'en_US')
+            locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
             item_info.append(locale.currency(this_product.unit_price, symbol=False, grouping=True)) # unit price, item_info[2]
             item_info.append(request.session["cart_dict"][key])#quantity in cart for this item, item_info[3]

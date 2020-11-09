@@ -21,7 +21,8 @@
             margin: 0 0;
         }
         img {
-            height:auto;
+            height:auto !important;
+            background-size:cover;
             }
     </style>
     <title>Products</title>
@@ -88,7 +89,7 @@
                 <div class="col-3">
                     {% for photo in all_photos %}
                     {% if photo.type_of_photo_id == 1 and photo.for_product_id == product.id %}
-                    <div class="row m-2"><a href="/product/category/{{ this_category.id }}/item/{{ product.id }}"><img class="" style="width:80%; height: auto !important;"  src="{{ photo.img.url }}"></a></div>
+                    <div class="row m-2"><a href="/product/category/{{ this_category.id }}/item/{{ product.id }}"><img class="" style="width:80%; height: auto !important; background-size:cover;"  src="{{ photo.img.url }}"></a></div>
                     {% endif %}
                     {% endfor %}
                     <a class="row text-dark m-2" href="/product/category/{{ this_category.id }}/item/{{ product.id }}">{{ product.name }}</a>

@@ -32,7 +32,7 @@
     <div class="col border border-info"> <!-- right box: Category listing -->
         {% for category in all_categories %}
             <a class="row text-dark h4 text-center pl-4 pt-3" href="/product/category/{{ category.id }}/no_sort">{{ category.name }}</a>
-            <a href="/product/category/{{ category.id }}/no_sort" class="row pl-4 pb-4"><img style="width: 97%; height: auto !important; background-size:cover"  src="{{ category.cat_photo.url }}"></a>
+            <a href="/product/category/{{ category.id }}/no_sort" class="col pl-4 pb-4"><img style="width: 97%; height: auto !important; background-size:cover"  src="{{ category.cat_photo.url }}"></a>
         {% endfor %}
     </div> <!-- End of left box: Category listing -->
 
